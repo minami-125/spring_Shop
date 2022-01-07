@@ -82,6 +82,7 @@ public class LoginContoller {
 			req.setAttribute("MSG", "업데이트 완료");
 			Member loginMember = mDAO.loginMember(m);
 			req.getSession().setAttribute("loginMember", loginMember); //session에 업데이트한 회원 정보 저장
+		
 		}else {
 			req.setAttribute("MSG", "업데이트 실패");
 		}

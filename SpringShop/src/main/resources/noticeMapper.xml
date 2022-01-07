@@ -19,10 +19,15 @@
 
 <!-- 글 출력 -->
 <select id="printNotice" resultType="com.spring.shop.notice.Notice" parameterType="com.spring.shop.notice.Notice">
-	select 
-		*, TO_CHAR(TO_TIMESTAMP(ni_instate , 'YYYYMMDDHH24MISS'), 'YYYY/MM/DD HH24:MI') "ni_instate" from notice_info 
+	select
+		ni_no
+		,ni_title
+		,ni_content
+		,ni_instate
+		,ni_writer
+	from notice_info 
 	where 
-		ni_no = nextval('seq_ni_no')
+		ni_no = #{ni_no}
 </select>
 
 <!-- 글 수정 -->
@@ -33,12 +38,12 @@
 		ni_content = #{ni_content},
 		ni_writer = #{ni_writer}
 	where 
-		ni_no = nextval('seq_ni_no')
+		ni_no = #{ni_no}
 	</update>
 
 <!-- 글 삭제 -->
 	<delete id="deleteNotice" parameterType="com.spring.shop.notice.Notice">
-		delete from notice_info where ni_no = nextval('seq_ni_no')
+		delete from notice_info where ni_no = #{ni_no}
 	</delete>
 
 </mapper>

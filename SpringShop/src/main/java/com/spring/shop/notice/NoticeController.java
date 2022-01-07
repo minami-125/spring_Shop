@@ -16,6 +16,8 @@ public class NoticeController {
 	@RequestMapping(value = "/notice", method = RequestMethod.GET)
 	public String notice(HttpServletRequest req) {
 		req.setAttribute("content", "notice/notice.jsp");
+
+		
 		return "home";
 	}
 	
@@ -56,14 +58,16 @@ public class NoticeController {
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public String read(Notice n, HttpServletRequest req) {
 		
+		req.setAttribute("ni_no", 10);
+		n.setNi_no(10);
+		
 		Notice printNotice = nDAO.printNotice(n);
-		if(printNotice != null) {
-			req.getSession().setAttribute("readNotice", printNotice);
-			req.setAttribute("content", "notice/noticeContent.jsp");
-		}
-		else {
-			req.setAttribute("content", "notice/notice.jsp");
-		}
+		System.out.println("여기 컨트롤러임"+n.getNi_no());
+
+		req.setAttribute("details", printNotice);
+		
+		req.setAttribute("content", "notice/read.jsp");
+		
 		return "home";
 	}
 	
