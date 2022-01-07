@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.shop.notice.NoticeMapper">
+
+<!-- 글 입력 -->
+<insert id="uploadNotice" parameterType="com.spring.shop.notice.Notice">
+	insert into notice_info (
+		ni_no,
+		ni_title,
+		ni_content,
+		ni_writer 
+	)values(
+		nextval('seq_ni_no'),
+		#{ni_title},
+		#{ni_content},
+		#{ni_writer}	
+	)
+</insert>
+
+<!-- 글 출력 -->
+<select id="printNotice" resultType="com.spring.shop.notice.Notice" parameterType="com.spring.shop.notice.Notice">
+	select 
+		*, TO_CHAR(TO_TIMESTAMP(ni_instate , 'YYYYMMDDHH24MISS'), 'YYYY/MM/DD HH24:MI') "ni_instate" from notice_info 
+	where 
+		ni_no = nextval('seq_ni_no')
+</select>
+
+<!-- 글 수정 -->
+	<update id="updateNotice" parameterType="com.spring.shop.notice.Notice">
+	update notice_info
+	set
+		ni_title = #{ni_title},
+		ni_content = #{ni_content},
+		ni_writer = #{ni_writer}
+	where 
+		ni_no = nextval('seq_ni_no')
+	</update>
+
+<!-- 글 삭제 -->
+	<delete id="deleteNotice" parameterType="com.spring.shop.notice.Notice">
+		delete from notice_info where ni_no = nextval('seq_ni_no')
+	</delete>
+
+</mapper>

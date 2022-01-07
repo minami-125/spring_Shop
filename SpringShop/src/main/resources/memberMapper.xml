@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.shop.login.MemberMapper">
+<!-- signup -->
+	<insert id="joinMember" parameterType="com.spring.shop.login.Member">
+		insert into member_info (
+			mi_id,
+			mi_pw,
+			mi_name,
+			mi_email,
+			mi_mobile,
+			mi_birthday,
+			mi_tell,
+			mi_addr
+		)values(
+			#{mi_id},
+			#{mi_pw},
+			#{mi_name},
+			#{mi_email},
+			#{mi_mobile},
+			#{mi_birthday},
+			#{mi_tell},
+			#{mi_addr}
+		)		
+	</insert>
+
+<!-- login -->
+	<select id="loginMember" resultType="com.spring.shop.login.Member" parameterType="com.spring.shop.login.Member">
+		select * 
+		from member_info 
+		where 
+			mi_id = #{mi_id} and mi_pw = #{mi_pw}
+	</select>
+	
+<!-- update mypage -->	
+	<update id="updateMember" parameterType="com.spring.shop.login.Member">
+		update member_info 
+		set 
+			mi_pw = #{mi_pw} , 
+			mi_name  = #{mi_name}, 
+			mi_email = #{mi_email}, 
+			mi_mobile = #{mi_mobile}, 
+			mi_birthday = #{mi_birthday},
+			mi_tell =  #{mi_tell},
+			mi_addr = #{mi_addr} 
+		where 
+			mi_id = #{mi_id}			
+	</update>
+	
+<!-- 탈퇴 -->
+	<delete id="deleteMember" parameterType="com.spring.shop.login.Member">
+		delete from member_info where mi_id = #{mi_id}
+	</delete>	
+	
+	
+</mapper>
