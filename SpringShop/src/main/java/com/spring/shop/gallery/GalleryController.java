@@ -12,9 +12,8 @@ public class GalleryController {
 	@RequestMapping(value = "/gallery", method = RequestMethod.GET)
 	public String gallery(HttpServletRequest req) {
 		req.setAttribute("content", "gallery.jsp");
+		System.out.println("¾Æ¸¶µµ?");
 		return "home";
 	}
-	
-	
 	
 }
