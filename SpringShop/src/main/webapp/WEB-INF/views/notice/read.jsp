@@ -4,22 +4,23 @@
 <form method="get" action="/read">
 <main>
   <div class="form-group">
-    <p class="form-control" name="ni_title" id="ni_title" aria-describedby="emailHelp">${details.ni_title }</p>
-    <input type="text" class="form-control" name="ni_writer" value="${printNoticee.ni_title }" id="ni_writer" aria-describedby="emailHelp" placeholder="Enter name">
- 	<td>${printNoticee.ni_title }</td>
+    Title: <p class="form-control" name="ni_title" id="ni_title" aria-describedby="emailHelp">${selectOne.ni_title }</p>
+   	Writer: <input type="text" class="form-control" name="ni_writer" value="${selectOne.ni_writer }" id="ni_writer" aria-describedby="emailHelp">
+    Date: <input type="text" class="form-control" name="ni_instate" value="${selectOne.ni_instate }" id="ni_instate" aria-describedby="emailHelp">
   </div>
-  <br>
   <div class="form-group">
-    <label for="exampleFormControlTextarea1">Example</label>
-    <textarea class="form-control" name="ni_content" id="ni_content" rows="3" placeholder="Type text here"></textarea>
+    Content:<input class="form-control" name="ni_content" id="ni_content" rows="3" value="${selectOne.ni_content }">
   </div>
   <br>
-  <input type="button" type="submit" value="Upload" class="btn btn-primary" onclick="check()">
-  <button type="reset" class="btn btn-primary">Reset</button>
+  <a class="btn btn-primary" href="/notice">Notice</a>
+  <a class="btn btn-primary" href="/edit">Edit</a>
+  <a class="btn btn-primary" href="/delete">Delete</a>
 </main>
 </form>
 
 <script>
-
-
+	let msg = "${MSG}";
+	if(msg != ""){
+		alert(msg);
+	}
 </script>
