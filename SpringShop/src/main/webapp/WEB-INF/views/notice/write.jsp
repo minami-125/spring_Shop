@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <main>
-<form name="noticeForm" method="post" action="/write">
+<form name="noticeForm" method="post" action="/write" enctype="multipart/form-data">
   <div class="form-group">
     <label for="exampleInputEmail1">Title</label>
     <input type="text" class="form-control" name="ni_title" id="ni_title" aria-describedby="emailHelp" placeholder="Enter title">
@@ -12,6 +12,7 @@
   <div class="form-group">
     <label for="exampleFormControlTextarea1">Example textarea</label>
     <textarea class="form-control" name="ni_content" id="ni_content" rows="3" placeholder="Type text here"></textarea>
+    <input type="file" name="file">
   </div>
   <br>
   <input type="button" type="submit" value="Upload" class="btn btn-primary" onclick="check()">

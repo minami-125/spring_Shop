@@ -1,6 +1,7 @@
 package com.spring.shop.notice;
 
 import java.io.Console;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -43,8 +44,8 @@ public class NoticeController {
 	
 	//글 입력
 	@RequestMapping(value="/write", method = RequestMethod.POST)
-	public String write(Notice n, HttpServletRequest req) {
-		int rst = nDAO.uploadNotice(n);
+	public String write(Notice n, HttpServletRequest req) throws IOException {
+		int rst = nDAO.uploadNotice(n, req);
 		if(rst >= 1) {
 			req.setAttribute("MSG", "업로드 성공");
 			req.setAttribute("content", "notice/notice.jsp");
@@ -73,12 +74,12 @@ public class NoticeController {
 		
 		int rst = nDAO.updateNotice(n);
 		if(rst >= 1) {
-			req.setAttribute("MSG", "업데이트 완료");
+			req.setAttribute("MSG", "수정 완료");
 			Notice printNotice = nDAO.printNotice(n);
-			req.getSession().setAttribute("printNotice", printNotice); //session에 업데이트한 회원 정보 저장
+			req.getSession().setAttribute("selectOne", printNotice);
 			
 		}else {
-			req.setAttribute("MSG", "업데이트 실패");
+			req.setAttribute("MSG", "수정 실패");
 		}
 		req.setAttribute("content", "notice/read.jsp");
 		

@@ -51,6 +51,12 @@
 		<beans:constructor-arg name="sqlSessionFactory"
 			ref="sqlSessionFactory" />
 	</beans:bean>
+	
+	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="defaultEncoding" value="UTF-8" /> <!-- 인코딩-->
+		<beans:property name="maxUploadSize" value="10000000" /> <!--  최대 사이즈-->
+	</beans:bean>
 
 	
 </beans:beans>

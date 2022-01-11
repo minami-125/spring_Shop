@@ -17,4 +17,6 @@ public interface NoticeMapper {
 	public int updateNotice(Notice n);
 	
 	public int deleteNotice(Notice n);
+	
+	public abstract int addFile(Map<String, Object> param);
 }
