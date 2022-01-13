@@ -90,7 +90,7 @@ public class NoticeController {
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String deleteNotice(Notice n, HttpServletRequest req) {
 		
-		int rst = nDAO.deleteNotice(n);
+		int rst = nDAO.deleteNotice(n, req);
 		
 		if(rst >= 1) {
 			req.setAttribute("MSG", "삭제 성공");
@@ -103,5 +103,6 @@ public class NoticeController {
 		return "home";
 	}
 	
-	
+	//글 파일 삭제 디비랑 웹서버에서도 삭제하고 
+	//이미지 다운받아서 같은 이름 다른 파일 업데이트 해보기
 }

@@ -97,7 +97,8 @@ public class NoticeDAO {
 		return ss.getMapper(NoticeMapper.class).updateNotice(n);
 	}
 	
-	public int deleteNotice(Notice n) {
+	public int deleteNotice(Notice n, HttpServletRequest req) {
+		
 		return ss.getMapper(NoticeMapper.class).deleteNotice(n);
 	}
 }

@@ -9,7 +9,10 @@
     Date: <p type="text" class="form-control" name="ni_instate" id="ni_instate" aria-describedby="emailHelp">${selectOne.ni_instate }</p>
   </div>
   <div class="form-group">
-    Content:<input class="form-control" name="ni_content" id="ni_content" rows="3" value="${selectOne.ni_content }">
+    Content:<br>
+    <!-- 파일 출력 -->
+    <img src="${selectOne.saved_file_name }" alt="error">
+    <input class="form-control" name="ni_content" id="ni_content" rows="3" value="${selectOne.ni_content }">
   </div>
   <br>
   <a class="btn btn-primary" href="/notice">Notice</a>
