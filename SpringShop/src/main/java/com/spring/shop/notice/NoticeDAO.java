@@ -38,37 +38,44 @@ public class NoticeDAO {
 		if(!saveDir.exists()) { //saveDir이 없으면
 			saveDir.mkdirs();   //상위 폴더까지 생성
 		}
-		
+		MultipartHttpServletRequest mr = (MultipartHttpServletRequest) req; // req에 파일이 저장되어 있음
+		System.out.println("!!!!!!!!!!!!!!!!!!!");
+		System.out.println(mr.getFile("file"));
+		System.out.println("!!!!!!!!!!!!!!!!!!!");
+		Map<String, Object> param = new HashMap<String, Object>();
 		try {
-			// 파일이 서버에 잘 올라갔는지 확인 -> try catch 
-			MultipartHttpServletRequest mr = (MultipartHttpServletRequest) req; // req에 파일이 저장되어 있음
-			MultipartFile f = mr.getFile("file");
-			fileSize = f.getSize();
-			name = f.getOriginalFilename(); //업로드 파일명
-			File destination = File.createTempFile("F_" + System.currentTimeMillis(), name.substring(name.lastIndexOf(".")), saveDir); //업로드 파일의 가명
-			fileSavedName = destination.getName();
-			FileCopyUtils.copy(f.getInputStream(), new FileOutputStream(destination)); //웹서버에 업로드
-			try {
-				Map<String, Object> param = new HashMap<String, Object>();
-				param.put("name", name);
-				param.put("fileSavedName", fileSavedName);
-				param.put("fileSize", fileSize);
-				int filerst = ss.getMapper(NoticeMapper.class).addFile(param);
-				if(filerst > 0) {
-					return ss.getMapper(NoticeMapper.class).uploadNotice(n);
-				}else {
-					return 0;
+			ss.getMapper(NoticeMapper.class).uploadNotice(n);
+			if(mr.getFile("file") != null) {
+				try {
+					MultipartFile f = mr.getFile("file");
+					fileSize = f.getSize();
+					name = f.getOriginalFilename(); //업로드 파일명
+					File destination = File.createTempFile("F_" + System.currentTimeMillis(), name.substring(name.lastIndexOf(".")), saveDir); //업로드 파일의 가명
+					fileSavedName = destination.getName();
+					FileCopyUtils.copy(f.getInputStream(), new FileOutputStream(destination)); //웹서버에 업로드
+					param.put("name", name);
+					param.put("fileSavedName", fileSavedName);
+					param.put("fileSize", fileSize);
+					try {
+						param.put("board_id", n.getNi_no());
+						int rst = ss.getMapper(NoticeMapper.class).addFile(param);
+						System.out.println("!!!!!!!!!!!FILE UPLOAD " + rst);
+					} catch (Exception e) {
+						e.printStackTrace();
+						// TODO: handle exception
+						File delFile = new File(path + "/" + fileSavedName );
+						delFile.delete();
+					}
+				} catch (Exception e) {
+					System.out.println("파일 업로드할떄 문제생김");
 				}
-			} catch (Exception e) {
-				// db통신 실패했으니 서버에 방금 올린거 지워야겠고..
-				File delFile = new File(path + "/" + fileSavedName );
-				delFile.delete();
-				return 0;
 			}
-		} catch (Exception e) {
-			System.out.println("파일업로드 실패..");
+			return 1;
+		}catch (Exception e) {
+			// TODO: handle exception
 			return 0;
 		}
+	
 		// 이 정보들 boardAttach에 넣어야..
 		// notice_info에도 넣어야. -> myBatis selectKey 사용
 		// boardID -> max(ni_no) + 1
@@ -99,6 +106,27 @@ public class NoticeDAO {
 	
 	public int deleteNotice(Notice n, HttpServletRequest req) {
 		
-		return ss.getMapper(NoticeMapper.class).deleteNotice(n);
+		//서버에서 삭제 
+		//디비에서 삭제 
+		//게시글에서 삭제
+		
+		String path = req.getSession().getServletContext().getRealPath("resources/file");
+		String fileSavedName = n.getSaved_file_name();
+		
+		int rst = ss.getMapper(NoticeMapper.class).deleteNotice(n);
+		
+		if(rst > 0) {
+			
+			File delFile = new File(path + "/" + fileSavedName );
+			delFile.delete();	
+			
+			
+			
+		}else {
+			System.out.println("삭제 실패");
+		}
+		
+
+		return 0;
 	}
 }

@@ -3,7 +3,7 @@
 <mapper namespace="com.spring.shop.notice.NoticeMapper">
 
 <!-- 글 입력 -->
-	<insert id="uploadNotice" parameterType="com.spring.shop.notice.Notice">
+	<insert id="uploadNotice" parameterType="com.spring.shop.notice.Notice" keyColumn="ni_no" useGeneratedKeys="true" keyProperty="ni_no">
 		insert into notice_info (
 			ni_no,
 			ni_title,
@@ -34,7 +34,7 @@
 		from notice_info
 	</select>
 
-<!-- 글 출력 -->
+<!-- 글, 파일 출력 -->
 	<select id="printNotice" resultType="com.spring.shop.notice.Notice" parameterType="com.spring.shop.notice.Notice">
 		select
 			ni_no,
@@ -46,7 +46,7 @@
 			saved_file_name
 		from 
 			notice_info ni
-		inner join
+		left outer join
 			board_attach ba
 		on
 			(ba.board_id = ni.ni_no) 
@@ -58,7 +58,7 @@
 <!-- 파일 업로드 -->
 	<insert id="addFile" parameterType="map">
 		<selectKey keyProperty="ni_no" resultType="int" order="BEFORE">
-			select max(ni_no)+1 from notice_info
+			SELECT max(ni_no)+1 from notice_info
 		</selectKey>
 		insert into board_attach (
 		 	board_type,
@@ -69,7 +69,7 @@
 			file_size
 		)values(
 			'Notice',
-			#{ni_no},
+			#{board_id},
 			nextval('seq_file_num'),
 			#{name},
 			#{fileSavedName},
@@ -87,14 +87,12 @@
 			ni_no = #{ni_no}
 	</update>
 
-<!-- 글 삭제 -->
+<!-- 글, 파일 삭제 -->
 	<delete id="deleteNotice" parameterType="com.spring.shop.notice.Notice">
 		delete from notice_info where ni_no = #{ni_no}
 	</delete>
-	
-<!-- 파일 삭제 -->
-	<delete id="deleteFile" parameterType="String">
-		delete from board_attach where saved_file_name = #{fileSavedName}
-	</delete>
+	<delete id="deleteFile" parameterType="com.spring.shop.notice.Notice">
+		delete from board_attach where board_id = #{ni_no}	
+	</delete>	
 
 </mapper>

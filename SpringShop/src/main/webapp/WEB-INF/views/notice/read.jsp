@@ -11,7 +11,7 @@
   <div class="form-group">
     Content:<br>
     <!-- 파일 출력 -->
-    <img src="${selectOne.saved_file_name }" alt="error">
+    <img src="resources/file/${selectOne.saved_file_name }" alt="error">
     <input class="form-control" name="ni_content" id="ni_content" rows="3" value="${selectOne.ni_content }">
   </div>
   <br>

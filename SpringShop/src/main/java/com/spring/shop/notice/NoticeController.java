@@ -23,6 +23,7 @@ public class NoticeController {
 
 	@RequestMapping(value = "/notice", method = RequestMethod.GET)
 	public String notice(Notice n, HttpServletRequest req) {
+		System.out.println(req.getSession().getServletContext().getRealPath("resources"));
 		req.setAttribute("content", "notice/notice.jsp");
 		return "home";
 	}
@@ -60,8 +61,8 @@ public class NoticeController {
 	//±Û Ãâ·Â
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public String read(Notice n, HttpServletRequest req) {
-		
 		Notice one = nDAO.printNotice(n);
+		System.out.println("ddd");
 		req.setAttribute("selectOne", one);
 		req.setAttribute("content", "notice/read.jsp");
 		
