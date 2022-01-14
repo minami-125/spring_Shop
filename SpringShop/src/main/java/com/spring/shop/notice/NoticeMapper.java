@@ -19,7 +19,7 @@ public interface NoticeMapper {
 	public int deleteNotice(Notice n);
 	
 	public abstract int addFile(Map<String, Object> param);
-
-	public abstract int deleteFile(Map<String, Object> param);
+	
+	public int deleteFile(Notice n);
 	
 }

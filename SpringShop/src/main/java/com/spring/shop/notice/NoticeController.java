@@ -62,7 +62,6 @@ public class NoticeController {
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public String read(Notice n, HttpServletRequest req) {
 		Notice one = nDAO.printNotice(n);
-		System.out.println("ddd");
 		req.setAttribute("selectOne", one);
 		req.setAttribute("content", "notice/read.jsp");
 		
@@ -88,10 +87,11 @@ public class NoticeController {
 	}
 
 	//글 삭제
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String deleteNotice(Notice n, HttpServletRequest req) {
 		
 		int rst = nDAO.deleteNotice(n, req);
+		System.out.println(n.getNi_no());
 		
 		if(rst >= 1) {
 			req.setAttribute("MSG", "삭제 성공");

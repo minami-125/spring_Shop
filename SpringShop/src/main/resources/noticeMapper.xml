@@ -92,7 +92,7 @@
 		delete from notice_info where ni_no = #{ni_no}
 	</delete>
 	<delete id="deleteFile" parameterType="com.spring.shop.notice.Notice">
-		delete from board_attach where board_id = #{ni_no}	
+		delete from board_attach where saved_file_name = #{fileSavedName}	
 	</delete>	
 
 </mapper>

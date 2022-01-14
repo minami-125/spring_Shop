@@ -62,7 +62,6 @@ public class NoticeDAO {
 						System.out.println("!!!!!!!!!!!FILE UPLOAD " + rst);
 					} catch (Exception e) {
 						e.printStackTrace();
-						// TODO: handle exception
 						File delFile = new File(path + "/" + fileSavedName );
 						delFile.delete();
 					}
@@ -72,7 +71,6 @@ public class NoticeDAO {
 			}
 			return 1;
 		}catch (Exception e) {
-			// TODO: handle exception
 			return 0;
 		}
 	
@@ -99,7 +97,7 @@ public class NoticeDAO {
 		result.put("list", list);
 		return result;
 	}
-	
+	 
 	public int updateNotice(Notice n) {
 		return ss.getMapper(NoticeMapper.class).updateNotice(n);
 	}
@@ -111,22 +109,31 @@ public class NoticeDAO {
 		//게시글에서 삭제
 		
 		String path = req.getSession().getServletContext().getRealPath("resources/file");
-		String fileSavedName = n.getSaved_file_name();
+		System.out.println(path);
 		
+		String fileSavedName = n.getSaved_file_name(); 
+		System.out.println(fileSavedName); //null
 		int rst = ss.getMapper(NoticeMapper.class).deleteNotice(n);
 		
 		if(rst > 0) {
-			
-			File delFile = new File(path + "/" + fileSavedName );
-			delFile.delete();	
-			
-			
-			
+			try {
+				//서버 삭제
+				File delFile = new File(path + "/" + fileSavedName );
+				delFile.delete();
+				
+				if(!delFile.exists()) {
+					//DB 삭제
+					return ss.getMapper(NoticeMapper.class).deleteFile(n);
+				}else {
+					System.out.println("DB 삭제 실패");
+				}
+			}catch (Exception e) {
+				System.out.println("파일 삭제 실패");
+			}
 		}else {
-			System.out.println("삭제 실패");
+			System.out.println("게시글 삭제 실패");
 		}
 		
-
 		return 0;
 	}
 }
