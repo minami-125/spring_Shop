@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.spring.shop.PageGenerator;
 
 @Service
+@Transactional
 public class NoticeDAO {
 	
 	@Autowired
@@ -99,41 +101,47 @@ public class NoticeDAO {
 	}
 	 
 	public int updateNotice(Notice n) {
+		
+		//파일만 수정 or 게시글만 수정
+		//기존 파일 삭제
+//		String path = req.getSession().getServletContext().getRealPath("resources/file");
+//		File saveDir = new File(path);
+		
 		return ss.getMapper(NoticeMapper.class).updateNotice(n);
 	}
 	
-	public int deleteNotice(Notice n, HttpServletRequest req) {
+	@Transactional
+	public int deleteNotice(HttpServletRequest req) {
 		
 		//서버에서 삭제 
 		//디비에서 삭제 
 		//게시글에서 삭제
-		
+		System.out.println(req.getParameter("saved_file_name"));
+		System.out.println(req.getParameter("file_name"));
+		System.out.println(req.getParameter("ni_no"));
+		String fileSavedName = req.getParameter("saved_file_name");
 		String path = req.getSession().getServletContext().getRealPath("resources/file");
-		System.out.println(path);
+		System.out.println("DAO path:"+path);
 		
-		String fileSavedName = n.getSaved_file_name(); 
-		System.out.println(fileSavedName); //null
-		int rst = ss.getMapper(NoticeMapper.class).deleteNotice(n);
-		
-		if(rst > 0) {
-			try {
-				//서버 삭제
-				File delFile = new File(path + "/" + fileSavedName );
-				delFile.delete();
+		int ni_no = Integer.parseInt(req.getParameter("ni_no"));
+
+		try {
+			//서버 삭제
+			File delFile = new File(path + "/" + fileSavedName );
+			delFile.delete();
 				
-				if(!delFile.exists()) {
-					//DB 삭제
-					return ss.getMapper(NoticeMapper.class).deleteFile(n);
-				}else {
-					System.out.println("DB 삭제 실패");
-				}
-			}catch (Exception e) {
-				System.out.println("파일 삭제 실패");
+			if(!delFile.exists()) {
+				//DB 삭제
+				ss.getMapper(NoticeMapper.class).deleteFile(ni_no);
+				return ss.getMapper(NoticeMapper.class).deleteNotice(ni_no);
+			}else {
+				System.out.println("DB 삭제 실패");
+				return 0;
 			}
-		}else {
-			System.out.println("게시글 삭제 실패");
+		}catch (Exception e) {
+			System.out.println("서버 삭제 실패");
+			return 0;
 		}
-		
-		return 0;
+			
 	}
 }

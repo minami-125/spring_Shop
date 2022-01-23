@@ -9,16 +9,26 @@
     Date: <p type="text" class="form-control" name="ni_instate" id="ni_instate" aria-describedby="emailHelp">${selectOne.ni_instate }</p>
   </div>
   <div class="form-group">
-    Content:<br>
+    Content:<br>  
+  	<table>
+  	<tr>
+  		<td id="right">
+		    <input class="form-control" name="ni_content" id="ni_content" value="${selectOne.ni_content }">
+    	</td>
+  		<td>
     <!-- 파일 출력 -->
-    <img src="resources/file/${selectOne.saved_file_name }" alt="error">
-    <input class="form-control" name="ni_content" id="ni_content" rows="3" value="${selectOne.ni_content }">
+		    <img src="resources/file/${selectOne.saved_file_name }" alt="error">
+		    <p>파일명: ${selectOne.file_name }</p>  		
+  		</td>
+  	</tr>
+  	</table>
+  	<br>
     <input type="file" name="file">
   </div>
   <br>
   <a class="btn btn-primary" href="/notice">Notice</a>
   <button class="btn btn-primary" type="submit" name="ni_no" value="${selectOne.ni_no }">Edit</button>
-  <input type="button" class="btn btn-primary" onclick="fDel(${selectOne.ni_no })" value="Delete">
+   <input type="button" class="btn btn-primary" onclick="fileDel(${selectOne.ni_no })" value="Delete">
 </main>
 </form>
 
@@ -29,33 +39,32 @@
 	}
 	
 	//삭제
-	function fDel(ni_no){
-		
-		const sendingData = new FormData();
-		for (let key of sendingData.keys()) {
-			  console.log(key);
-			}
-
-		// FormData의 value 확인
-		for (let value of sendingData.values()) {
-		  console.log(value);
-		}
-		
+	function fileDel(no){
+		var data = {};
+		data.saved_file_name = "${selectOne.saved_file_name}";
+		data.file_name = "${selectOne.file_name}";
+		data.ni_no = no;
 		$.ajax({
 		    type : 'POST',
 		    url : "/delete",
-		    data : sendingData,
-		    processData : false,
-		    contetnType : false,
+		    data : data,
 		    error : function(error) {
-		        alert("Error!")
+		        alert("Error!");
 		    },
-		    success : function(data) {
-		        alert("삭제 성공!")
+		    success : function(value) {
+		    	if(value > 0){
+			    	alert("삭제성공");
+			        location.href="/notice";
+		    	}else{
+		    		alert("삭제실패");
+		    	}
 		    }
-		})
-		
-		
+		});
 	}
 	
 </script>
+<style>
+	table {width:100%;}
+	td {width: 50%;}
+	#right {border-right: 1px solid black; }
+</style>

@@ -16,10 +16,12 @@ public interface NoticeMapper {
 	
 	public int updateNotice(Notice n);
 	
-	public int deleteNotice(Notice n);
+	public int deleteNotice(int no);
 	
 	public abstract int addFile(Map<String, Object> param);
 	
-	public int deleteFile(Notice n);
+	public int deleteFile(int no);
+	
+	public int updateFile(Notice n);
 	
 }

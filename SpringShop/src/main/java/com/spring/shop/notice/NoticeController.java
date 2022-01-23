@@ -23,7 +23,7 @@ public class NoticeController {
 
 	@RequestMapping(value = "/notice", method = RequestMethod.GET)
 	public String notice(Notice n, HttpServletRequest req) {
-		System.out.println(req.getSession().getServletContext().getRealPath("resources"));
+//		System.out.println(req.getSession().getServletContext().getRealPath("resources"));
 		req.setAttribute("content", "notice/notice.jsp");
 		return "home";
 	}
@@ -88,20 +88,9 @@ public class NoticeController {
 
 	//글 삭제
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String deleteNotice(Notice n, HttpServletRequest req) {
-		
-		int rst = nDAO.deleteNotice(n, req);
-		System.out.println(n.getNi_no());
-		
-		if(rst >= 1) {
-			req.setAttribute("MSG", "삭제 성공");
-			req.setAttribute("content", "notice/notice.jsp");
-		}else {
-			req.setAttribute("MSG", "삭제 실패");
-			req.setAttribute("MSG", "notice/read.jsp");
-		}
-		
-		return "home";
+	@ResponseBody //없으면 ajax로 return
+	public int deleteNotice(HttpServletRequest req) {
+		return nDAO.deleteNotice(req);
 	}
 	
 	//글 파일 삭제 디비랑 웹서버에서도 삭제하고 

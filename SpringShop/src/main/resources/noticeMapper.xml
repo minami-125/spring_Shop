@@ -87,12 +87,21 @@
 			ni_no = #{ni_no}
 	</update>
 
+<!-- 파일 수정 -->
+	<update id="updateFile" parameterType="com.spring.shop.notice.Notice">
+		update board_attach 
+		set 
+			saved_file_name = #{fileSavedName} 
+		where 
+			board_id = #{ni_no}
+	</update>
+
 <!-- 글, 파일 삭제 -->
-	<delete id="deleteNotice" parameterType="com.spring.shop.notice.Notice">
+	<delete id="deleteNotice" parameterType="int">
 		delete from notice_info where ni_no = #{ni_no}
 	</delete>
-	<delete id="deleteFile" parameterType="com.spring.shop.notice.Notice">
-		delete from board_attach where saved_file_name = #{fileSavedName}	
+	<delete id="deleteFile" parameterType="int">
+		delete from board_attach where board_id = #{ni_no}	
 	</delete>	
 
 </mapper>
