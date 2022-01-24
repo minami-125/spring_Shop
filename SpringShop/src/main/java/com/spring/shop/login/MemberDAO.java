@@ -1,5 +1,7 @@
 package com.spring.shop.login;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,11 @@ public class MemberDAO {
 	
 	public Member loginMember(Member m) { //입력받은 데이터 값 Member에 저장
 		 return ss.getMapper(MemberMapper.class).loginMember(m);
+	}
+	
+	public int idCheck(HttpServletRequest req) {
+		String id = req.getParameter("username");
+		return ss.getMapper(MemberMapper.class).idCheck(id);
 	}
 	
 	public int updateMember(Member m) {

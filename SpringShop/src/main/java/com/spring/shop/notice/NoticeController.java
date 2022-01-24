@@ -72,7 +72,7 @@ public class NoticeController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public String edit(Notice n, HttpServletRequest req) {
 		
-		int rst = nDAO.updateNotice(n);
+		int rst = nDAO.updateNotice(n, req);
 		if(rst >= 1) {
 			req.setAttribute("MSG", "수정 완료");
 			Notice printNotice = nDAO.printNotice(n);

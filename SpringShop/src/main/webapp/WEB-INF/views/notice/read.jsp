@@ -17,7 +17,8 @@
     	</td>
   		<td>
     <!-- 파일 출력 -->
-		    <img src="resources/file/${selectOne.saved_file_name }" alt="error">
+		    <img src="resources/file/${selectOne.saved_file_name }" alt="error" width="100px" height="100px">
+		    <input type="hidden" value="${selectOne.saved_file_name }" name="saved_file_name">
 		    <p>파일명: ${selectOne.file_name }</p>  		
   		</td>
   	</tr>

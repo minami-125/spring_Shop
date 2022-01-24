@@ -12,4 +12,6 @@ public interface MemberMapper {
 	public int updateMember(Member m);
 	
 	public int deleteMember(Member m);
+	
+	public int idCheck(String id);
 }

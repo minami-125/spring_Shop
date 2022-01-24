@@ -7,8 +7,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class LoginContoller {
@@ -28,7 +30,7 @@ public class LoginContoller {
 		return "home";
 	}
 	
-	//signup
+	//signUp
 	@RequestMapping(value = "/home", method = RequestMethod.POST)
 	public String insertSign(Member m, HttpServletRequest req) {
 		int rst = mDAO.joinMember(m);
@@ -39,7 +41,13 @@ public class LoginContoller {
 		}
 		req.setAttribute("content", "login/login.jsp");
 		return "home";
-
+	}
+	
+	//check ID
+	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
+	@ResponseBody
+	public int idCheck(HttpServletRequest req) {
+		return mDAO.idCheck(req);
 	}
 	
 	//login

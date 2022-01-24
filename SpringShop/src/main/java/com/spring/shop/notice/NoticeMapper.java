@@ -14,6 +14,7 @@ public interface NoticeMapper {
 	//ÃÑ °Ô½Ã±Û ¼ö
 	public int totalCnt();
 	
+	
 	public int updateNotice(Notice n);
 	
 	public int deleteNotice(int no);
@@ -22,6 +23,6 @@ public interface NoticeMapper {
 	
 	public int deleteFile(int no);
 	
-	public int updateFile(Notice n);
+	public int updateFile(Map<String, Object> param);
 	
 }

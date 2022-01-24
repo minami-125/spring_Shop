@@ -14,6 +14,7 @@
 								<p class="text-uppercase pull-center">SIGN UP</p>	
 	 							<div class="form-group">
 									<input type="text" name="mi_id" id="username" class="form-control input-lg" placeholder="Username">
+									<input type="button" value = "중복확인" class="btn btn-lg btn-primary" id="checkId">
 								</div>
 								<div class="form-group">
 									<input type="password" name="mi_pw" id="password" class="form-control input-lg" placeholder="Password" >
@@ -88,8 +89,34 @@
 </main>
 
 <script>
+	$(document).ready(function(){
+		$("#checkId").click(function(){
+			let id = $("#username").val();
+			checkId(id);
+		});
+	});
+
+
+
 	let msg = "${MSG}";
 	if(msg != ""){
 		alert(msg);
+	}
+	
+	function checkId(id){
+		$.ajax({
+			type : 'POST',
+		    url : "/idCheck",
+		    data : {"username": id},
+		    success : function(data) {
+		    	if(data == 1){
+		    		alert("중복된 아이디입니다.");
+		    		$("#username").val("");
+		    		$("#username").focus();
+		    	}else{
+		    		alert("사용 가능한 아이디입니다.");
+		    	}
+		    }
+		});
 	}
 </script>

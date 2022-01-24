@@ -33,6 +33,7 @@
 		select count(*)
 		from notice_info
 	</select>
+	
 
 <!-- 글, 파일 출력 -->
 	<select id="printNotice" resultType="com.spring.shop.notice.Notice" parameterType="com.spring.shop.notice.Notice">
@@ -88,10 +89,12 @@
 	</update>
 
 <!-- 파일 수정 -->
-	<update id="updateFile" parameterType="com.spring.shop.notice.Notice">
+	<update id="updateFile" parameterType="hashmap">
 		update board_attach 
 		set 
-			saved_file_name = #{fileSavedName} 
+			saved_file_name = #{fileSavedName},
+			file_name = #{name},
+			file_size = #{fileSize}
 		where 
 			board_id = #{ni_no}
 	</update>

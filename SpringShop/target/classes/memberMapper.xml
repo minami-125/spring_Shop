@@ -23,6 +23,13 @@
 			#{mi_addr}
 		)		
 	</insert>
+	
+<!-- id check -->
+	<select id="idCheck" resultType = "int" parameterType = "String">
+		select count(*) 
+		from member_info 
+		where mi_id = #{mi_id}
+	</select>
 
 <!-- login -->
 	<select id="loginMember" resultType="com.spring.shop.login.Member" parameterType="com.spring.shop.login.Member">
@@ -31,7 +38,7 @@
 		where 
 			mi_id = #{mi_id} and mi_pw = #{mi_pw}
 	</select>
-	
+		
 <!-- update mypage -->	
 	<update id="updateMember" parameterType="com.spring.shop.login.Member">
 		update member_info 
