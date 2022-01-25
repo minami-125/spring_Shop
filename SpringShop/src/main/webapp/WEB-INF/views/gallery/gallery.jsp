@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<form method="post" action="/galleryUp" enctype= "multipart/form-data">
 <main>
 	<!-- Gallery -->
+	<div>
+		<input type="file" name="files">
+	</div>
 	<div class="row">
 	  <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
 	    <img
@@ -47,4 +52,5 @@
 	</div>
 	<!-- Gallery -->
 </main>
+</form>
 <!-- 멀티파일 업로드: 이미지 3개까지 / 사진 누르면 게시글로 넘어가게 / 3개중 0번째 이미지-->
