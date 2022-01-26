@@ -5,8 +5,8 @@
 <form name="noticeForm" method="post" action="/write" enctype="multipart/form-data">
   <div class="form-group">
     <label for="exampleInputEmail1">Title</label>
-    <input type="text" class="form-control" name="ni_title" id="ni_title" aria-describedby="emailHelp" placeholder="Enter title">
-    <input type="text" class="form-control" name="ni_writer" id="ni_writer" aria-describedby="emailHelp" placeholder="Enter name">
+    <input type="text" class="form-control" name="ni_title" id="ni_title" aria-describedby="emailHelp" placeholder="Enter Title">
+    <input type="text" class="form-control" name="ni_writer" id="ni_writer" aria-describedby="emailHelp" placeholder="Enter Name">
   </div>
   <br>
   <div class="form-group">

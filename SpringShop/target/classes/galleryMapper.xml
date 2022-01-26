@@ -1,7 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.spring.shop.login.GalleryMapper">
+<mapper namespace="com.spring.shop.gallery.GalleryMapper">
 
-
+	<insert id="uploadGallery" parameterType="com.spring.shop.gallery.Gallery">
+		insert into gallery_info (
+			ga_no,
+			ga_title,
+			ga_content,
+			ga_writer 
+		)values(
+			nextval('seq_ni_no'),
+			#{ga_title},
+			#{ga_content},
+			#{ga_writer}	
+		)
+	</insert>
+	
+	<select id="readGallery" resultType="com.spring.shop.gallery.Gallery" parameterType="map">
+		select 
+			ga_no,
+			ga_title, 
+			ga_content, 
+			TO_CHAR(TO_TIMESTAMP(ga_instate , 'YYYYMMDDHH24MISS'), 'YYYY/MM/DD HH24:MI') "ga_instate", 
+			ga_writer 
+		from 
+			gallery_info 
+		order by 
+			ga_no desc 
+		limit #{E_OFFSET} - #{S_OFFSET} offset #{S_OFFSET}
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) from gallery_info
+	</select>
+	
+	<select id="printGallery" resultType="com.spring.shop.gallery.Gallery" parameterType="com.spring.shop.gallery.Gallery">
+		select 
+			ga_no,
+			ga_title, 
+			ga_content, 
+			TO_CHAR(TO_TIMESTAMP(ga_instate , 'YYYYMMDDHH24MISS'), 'YYYY/MM/DD HH24:MI') "ga_instate", 
+			ga_writer 
+		from 
+			gallery_info 
+		where 
+			ga_no =#{ga_no}
+	
+	</select>
+	
+	<update id="updateGallery" parameterType="com.spring.shop.gallery.Gallery">
+		update 
+			gallery_info 
+		set 
+			ga_title = #{ga_title}, 
+			ga_content = #{ga_content} 
+		where 
+			ga_no = #{ga_no}
+	</update>
+	
+	<insert id="addFiles" parameterType="map">
+		<selectKey keyProperty="ga_no" resultType="int" order="BEFORE">
+			SELECT max(ga_no)+1 from gallery_info
+		</selectKey>
+		insert into board_attach (
+		 	board_type,
+			board_id,
+			file_num,
+			file_name,
+			saved_file_name,
+			file_size
+		)values(
+			'Gallery',
+			#{board_id},
+			nextval('seq_file_num'),
+			#{name},
+			#{fileSavedName},
+			#{fileSize}
+		)
+	</insert>
 
 </mapper>
