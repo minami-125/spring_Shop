@@ -52,5 +52,12 @@ public class GalleryController {
 		return "home";
 	}
 	
+	//Ãâ·Â
+	@RequestMapping(value = "/print", method = RequestMethod.GET)
+	public String print(Gallery g, HttpServletRequest req) {
+		
+		return "home";
+	}
+	
 	
 }

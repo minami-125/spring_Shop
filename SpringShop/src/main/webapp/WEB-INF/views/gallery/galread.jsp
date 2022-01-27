@@ -19,7 +19,12 @@
 		<td>Content</td>
 		<tr>
 		<td><input class="form-control" name="ga_content" id="ga_content" value="${galEdit.ga_content }"></td>
-		<td><img src="" alt="error" width="100px" height="100px"></td>
+		<c:forEach var="" items="">
+		<td>
+		<img src="resources/file/${galEdit.saved_file_name }" alt="error" width="100px" height="100px"></td>
+		
+		</c:forEach>
+
 		</tr>
 		<tr>
 		<td><button type="submit" class="btn btn-primary" name="ga_no" value="${galEdit.ga_no }">Edit</button></td>

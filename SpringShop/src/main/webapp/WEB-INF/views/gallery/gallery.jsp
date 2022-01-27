@@ -52,7 +52,6 @@
 	    />
 	  </div>
 	</div>
-	
 	<!-- Gallery -->
 </main>
 </form>

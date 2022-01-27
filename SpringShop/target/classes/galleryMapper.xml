@@ -73,9 +73,9 @@
 			'Gallery',
 			#{board_id},
 			nextval('seq_file_num'),
-			#{name},
-			#{fileSavedName},
-			#{fileSize}
+			#{galName},
+			#{galSavedName},
+			#{galfileSize}
 		)
 	</insert>
 
