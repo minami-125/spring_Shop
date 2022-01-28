@@ -18,12 +18,11 @@
 		<td><textarea class="form-control" rows="3" name="ga_content" id="ga_content" placeholder="Enter Content"></textarea></td>
 		</tr>
 		<tr>
-		<td><button type="submit" class="btn btn-primary">Upload</button></td>
-  		<td><button type="reset" class="btn btn-primary">Reset</button></td>
+		<td> <input type="file" name="files" multiple></td>
 		</tr>
 		<tr>
-		<td> <input type="file" name="files" multiple></td>
-		
+		<td><button type="submit" class="btn btn-primary">Upload</button></td>
+  		<td><button type="reset" class="btn btn-primary">Reset</button></td>
 		</tr>
 		</table>
 		

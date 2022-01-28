@@ -80,7 +80,7 @@
 		    	for(var i=0; i<value.list.length; i++){
 		    		list = value.list[i];
 		    		html += "<tr><td>"+list.ga_no+"</td>";
-		    		html += "<td><a href='/galread?ga_no="+list.ga_no+"'>"+list.ga_title+"</a></td></tr>";
+		    		html += "<td><a href='/print?ga_no="+list.ga_no+"'>"+list.ga_title+"</a></td></tr>";
 		    		html += "<tr><td>"+list.ga_writer+"</td>";
 		    		html += "<td>"+list.ga_instate+"</td></tr>";
 		    	}

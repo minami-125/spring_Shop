@@ -55,7 +55,9 @@ public class GalleryController {
 	//Ãâ·Â
 	@RequestMapping(value = "/print", method = RequestMethod.GET)
 	public String print(Gallery g, HttpServletRequest req) {
-		
+		Gallery ga = gDAO.printGallery(g);
+		req.setAttribute("galEdit", ga);
+		req.setAttribute("content", "gallery/galread.jsp");
 		return "home";
 	}
 	

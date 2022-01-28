@@ -19,16 +19,14 @@
 		<td>Content</td>
 		<tr>
 		<td><input class="form-control" name="ga_content" id="ga_content" value="${galEdit.ga_content }"></td>
-		<c:forEach var="" items="">
+		<c:forEach var="multi" items="${ }">		
 		<td>
 		<img src="resources/file/${galEdit.saved_file_name }" alt="error" width="100px" height="100px"></td>
-		
-		</c:forEach>
-
 		</tr>
+		</c:forEach>
 		<tr>
 		<td><button type="submit" class="btn btn-primary" name="ga_no" value="${galEdit.ga_no }">Edit</button></td>
-  		<td></td>
+  		<td><input type="button" class="btn btn-primary" onclick="filesDel(${galEdit.ga_no })" value="Delete"></td>
 		</tr>
 		
 		</table>

@@ -57,6 +57,7 @@ public class GalleryDAO {
 					param.put("galName", galName);
 					try {
 						param.put("board_id", g.getGa_no());
+						System.out.println("Gallery Num: "+g.getGa_no());
 						int rst = ss.getMapper(GalleryMapper.class).addFiles(param);
 					}catch(Exception e) {
 						e.printStackTrace();
@@ -65,7 +66,7 @@ public class GalleryDAO {
 					}
 				}
 			}else {
-				System.out.println("galDAO it else");
+				System.out.println("galDAO if else");
 			}
 			return 1;
 		}catch (Exception e){
@@ -97,7 +98,16 @@ public class GalleryDAO {
 		return result;
 	}
 	
-	public Gallery printGallery(Gallery g) {
-		return ss.getMapper(GalleryMapper.class).printGallery(g);
+	public Map<String, Object> printGallery(Gallery g) {
+		
+		Map<String, Object> galFiles = new HashMap<String, Object>();
+		Gallery gf = ss.getMapper(GalleryMapper.class).printGallery(g);
+		galFiles.put("show", gf);
+		if(gf != null) {
+			int num = gf.getGa_no();
+			
+		}
+		
+		return galFiles;
 	}
 }

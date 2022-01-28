@@ -8,18 +8,28 @@ public class Gallery {
 	private String ga_instate;
 	private String ga_writer;
 	
+	private String file_name;
+	private String saved_file_name;
+	
 	public Gallery() {
 		
 	}
 
-	public Gallery(int ga_no, String ga_title, String ga_content, String ga_instate, String ga_writer) {
+	
+
+	public Gallery(int ga_no, String ga_title, String ga_content, String ga_instate, String ga_writer, String file_name,
+			String saved_file_name) {
 		super();
 		this.ga_no = ga_no;
 		this.ga_title = ga_title;
 		this.ga_content = ga_content;
 		this.ga_instate = ga_instate;
 		this.ga_writer = ga_writer;
+		this.file_name = file_name;
+		this.saved_file_name = saved_file_name;
 	}
+
+
 
 	public int getGa_no() {
 		return ga_no;
@@ -59,6 +69,30 @@ public class Gallery {
 
 	public void setGa_writer(String ga_writer) {
 		this.ga_writer = ga_writer;
+	}
+
+
+
+	public String getFile_name() {
+		return file_name;
+	}
+
+
+
+	public void setFile_name(String file_name) {
+		this.file_name = file_name;
+	}
+
+
+
+	public String getSaved_file_name() {
+		return saved_file_name;
+	}
+
+
+
+	public void setSaved_file_name(String saved_file_name) {
+		this.saved_file_name = saved_file_name;
 	}
 	
 	
